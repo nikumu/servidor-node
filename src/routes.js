@@ -5,7 +5,7 @@ const routes = Router();
 
 // Cria uma rota get para testar a api
 routes.get("/health", (request, response) => {
-  response.send("Seja bem vindo a minha api...");
+  response.status(200).json("Seja bem vindo a minha api...");
 });
 
 // Cria um array para simular um banco de dados
@@ -21,12 +21,12 @@ routes.post('/users', (request, response) => {
     age };
   users.push(newUser);
 
-  response.send(newUser);
+  response.status(201).json(newUser);
 });
 
 // Cria uma rota get para listar todos os usuários
 routes.get("/users", (request, response) => {
-  response.send(users);
+  response.status(200).json(users);
 });
 
 // Cria uma rota get para listar um usuário específico
@@ -35,9 +35,10 @@ routes.get('/users/:id', (request, response) => {
     (user) => user.id === parseInt(request.params.id)
   );
 
-  if (!currentUser) response.send("Nenhum usuário foi encontrado");
+  if (!currentUser) 
+    response.status(404).json("Nenhum usuário foi encontrado");
 
-  response.send(currentUser);
+  response.status(200).json(currentUser);
 });
 
 // Cria uma rota para deletar um usuário
@@ -46,11 +47,12 @@ routes.delete('/users/:id', (request, response) => {
     (user) => user.id === parseInt(request.params.id)
   );
 
-  if (index === -1) response.send("Nenhum usuário foi encontrado");
+  if (index === -1) 
+    response.status(404).json("Nenhum usuário foi encontrado");
 
   users.splice(0, index);
 
-  response.send("Usuário excluído com sucesso!");
+  response.status(200).json("Usuário excluído com sucesso!");
 });
 
 // Cria uma rota para atualizar um usuário
