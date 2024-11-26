@@ -38,6 +38,8 @@ app.get('/users/:id', (request, response) => {
     (user) => user.id === parseInt(request.params.id)
   );
 
+  if (!currentUser) response.send("Nenhum usuário foi encontrado");
+
   response.send(currentUser);
 });
 
