@@ -63,7 +63,8 @@ routes.put("/users/:id", (request, response) => {
     (user) => user.id === parseInt(request.params.id)
   );
 
-  if (index === -1) response.send("Nenhum usuário foi encontrado");
+  if (index === -1) 
+    response.status(404).json("Nenhum usuário foi encontrado");
 
   const updatedUser = {
     id: users[index].id,
@@ -73,7 +74,7 @@ routes.put("/users/:id", (request, response) => {
 
   users[index] = updatedUser;
   
-  response.send(updatedUser);
+  response.status(200).json(updatedUser);
 });
 
 module.exports  = routes;
