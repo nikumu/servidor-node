@@ -43,4 +43,17 @@ app.get('/users/:id', (request, response) => {
   response.send(currentUser);
 });
 
+// Cria uma rota para deletar um usuário
+app.delete('/users/:id', (request, response) => {
+  const index = users.findIndex(
+    (user) => user.id === parseInt(request.params.id)
+  );
+
+  if (index === -1) response.send("Nenhum usuário foi encontrado");
+
+  users.splice(0, index);
+
+  response.send("Usuário excluído com sucesso!");
+});
+
 app.listen(3001);
