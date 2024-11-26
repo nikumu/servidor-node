@@ -34,7 +34,11 @@ app.get("/users", (request, response) => {
 
 // Cria uma rota get para listar um usuário específico
 app.get('/users/:id', (request, response) => {
-  console.log(request.params.id);
-})
+  const currentUser = users.find(
+    (user) => user.id === parseInt(request.params.id)
+  );
+
+  response.send(currentUser);
+});
 
 app.listen(3001);
