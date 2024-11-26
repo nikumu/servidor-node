@@ -56,4 +56,25 @@ app.delete('/users/:id', (request, response) => {
   response.send("Usuário excluído com sucesso!");
 });
 
+// Cria uma rota para atualizar um usuário
+app.put("/users/:id", (request, response) => {
+  const { age, name } = request.body;
+
+  const index = users.findIndex(
+    (user) => user.id === parseInt(request.params.id)
+  );
+
+  if (index === -1) response.send("Nenhum usuário foi encontrado");
+
+  const updatedUser = {
+    id: users[index].id,
+    name,
+    age,
+  };
+
+  users[index] = updatedUser;
+  
+  response.send(updatedUser);
+});
+
 app.listen(3001);
