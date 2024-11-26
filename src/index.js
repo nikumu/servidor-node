@@ -11,6 +11,7 @@ app.get("/health", (request, response) => {
   response.send("Seja bem vindo a minha api...");
 });
 
+// Cria um array para simular um banco de dados
 let users = [];
 
 // Cria uma rota post para inserir um novo usuário
@@ -26,8 +27,14 @@ app.post('/users', (request, response) => {
   response.send(newUser);
 });
 
+// Cria uma rota get para listar todos os usuários
 app.get("/users", (request, response) => {
   response.send(users);
 });
+
+// Cria uma rota get para listar um usuário específico
+app.get('/users/:id', (request, response) => {
+  console.log(request.params.id);
+})
 
 app.listen(3001);
