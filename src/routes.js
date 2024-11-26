@@ -7,6 +7,8 @@ const {
   updateUser, 
 } = require("./controllers/users");
 
+const verifyToken = require("./middlewares/AuthMiddleware");
+
 const routes = Router();
 
 
@@ -15,14 +17,16 @@ routes.get("/health", (request, response) => {
   return response.status(200).json("Seja bem vindo a minha api...");
 });
 
-// Cria uma rota post para inserir um novo usuário
-routes.post('/users', createUser);
-
 // Cria uma rota get para listar todos os usuários
 routes.get("/users", listUsers);
 
 // Cria uma rota get para listar um usuário específico
 routes.get('/users/:id', listUserDetail); 
+
+routes.use(verifyToken);
+
+// Cria uma rota post para inserir um novo usuário
+routes.post('/users', createUser);
 
 // Cria uma rota para deletar um usuário
 routes.delete('/users/:id', deleteUser);
